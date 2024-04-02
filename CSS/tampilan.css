@@ -42,6 +42,7 @@ h1,h2,h3{
 
 p,ul,li,a, address {
     color:#C5C6C7;
+    text-align: justify;
 }
 
 .image-blog {
