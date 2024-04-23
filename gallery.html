@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery</title>
   <link rel="stylesheet" href="CSS/tampilan.css">
-  <script src="JS/jscript.js"></script>
 </head>
 
 <body>
@@ -29,80 +28,55 @@
     <div class="container">
       <h2>Selamat Datang di Gallery Saya</h2>
       <div class="button-gal" id="button-gal">
-      </div>
+        <button class="gallery-button" onclick="showColumn(1)">1</button><button class="gallery-button"
+          onclick="showColumn(2)">2</button></div>
 
       <div id="gallery" class="row">
-        <script>
-          var xmlhttp = new XMLHttpRequest();
-
-          xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-              if (xmlhttp.status == 200) {
-                var n = (xmlhttp.responseText.match(/jpg/g) || []).length;
-
-                let start = 1;
-                let end = 8;
-                let m = 5;
-                let columnCount = 1;
-
-                let row = document.getElementById("gallery");
-
-                for (let i = 0; i < (n / 4) / 8; i++) {
-                  let column = document.createElement("div");
-                  column.id = "column" + columnCount;
-                  column.className = "column";
-                  if (columnCount !== 1) {
-                    column.style.display = "none";
-                  }
-                  row.appendChild(column);
-
-                  let divbut = document.getElementById("button-gal");
-                  let but = document.createElement("button");
-                  but.className = "gallery-button";
-                  but.append(columnCount);
-                  but.setAttribute("onclick", "showColumn(" + columnCount + ")");
-                  divbut.appendChild(but);
-
-                  for (let j = start; j <= end; j++) {
-                    if (j <= n) {
-                      let image = document.createElement("img");
-                      image.src = 'Picture/Gallery/' + j + '.jpg';
-                      image.width = "250";
-                      document.getElementById("column" + columnCount)?.appendChild(image);
-                    } else {
-                      j++;
-                    }
-
-                  }
-
-                  start = end + 1;
-                  end = start + 7;
-                  columnCount++;
-                }
-              }
-            }
-          };
-
-          xmlhttp.open("GET", "Picture/Gallery/", true);
-          xmlhttp.send();
-
-          function showColumn(columnId) {
-            var columns = document.getElementsByClassName("column");
-            for (var i = 0; i < columns.length; i++) {
-              if (columns[i].id === "column" + columnId) {
-                columns[i].style.display = "block";
-              } else {
-                columns[i].style.display = "none";
-              }
-            }
-          }
-        </script>
+        <div id="column1" class="column"><img src="Picture/Gallery/1.jpg" width="250"><img src="Picture/Gallery/2.jpg"
+            width="250"><img src="Picture/Gallery/3.jpg" width="250"><img src="Picture/Gallery/4.jpg" width="250"><img
+            src="Picture/Gallery/5.jpg" width="250"><img src="Picture/Gallery/6.jpg" width="250"><img
+            src="Picture/Gallery/7.jpg" width="250"><img src="Picture/Gallery/8.jpg" width="250"></div>
+        <div id="column2" class="column" style="display: none;"><img src="Picture/Gallery/9.jpg" width="250"><img
+            src="Picture/Gallery/10.jpg" width="250"><img src="Picture/Gallery/11.jpg" width="250"><img
+            src="Picture/Gallery/12.jpg" width="250"><img src="Picture/Gallery/13.jpg" width="250"><img
+            src="Picture/Gallery/14.jpg" width="250"><img src="Picture/Gallery/15.jpg" width="250"><img
+            src="Picture/Gallery/16.jpg" width="250"></div>
       </div>
 
     </div>
   </div>
 
+  <script>
+    function showLoader() {
+      document.getElementById("loader").style.display = "block";
+    }
 
+
+    function hideLoader() {
+      document.getElementById("loader").style.display = "none";
+    }
+
+
+    window.addEventListener('beforeunload', function () {
+      showLoader();
+    });
+
+
+    window.addEventListener('load', function () {
+      hideLoader();
+    });
+
+    function showColumn(columnId) {
+      var columns = document.getElementsByClassName("column");
+      for (var i = 0; i < columns.length; i++) {
+        if (columns[i].id === "column" + columnId) {
+          columns[i].style.display = "block";
+        } else {
+          columns[i].style.display = "none";
+        }
+      }
+    }
+  </script>
 
 </body>
 
