@@ -1,41 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="CSS/tampilan.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="CSS/tampilan.css">
+  <script src="JS/jscript.js"></script>
 </head>
+
 <body>
-    
-    <div class="menubar">
-        <h1 class="sidebar title">Gallery</h1>
-        <a class="sidebar" href="index.html">Home</a> 
-        <a class="sidebar" href="blog.html">Blog</a> 
-        <a class="sidebar" href="contact.html">Contact</a>
+
+  <div class="loader" id="loader">
+    <div class="water">
+      <div class="circle"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
     </div>
-    <div class="spacing">
-        <div class="container">
-        <h2>Selamat Datang di Gallery Saya</h2>
-            <div>
-                <img src="Picture/Gallery/1.jpg" alt="1" width="250">
-                <img src="Picture/Gallery/2.jpg" alt="2" width="250">
-                <img src="Picture/Gallery/3.jpg" alt="3" width="250">
-                <img src="Picture/Gallery/4.jpg" alt="4" width="250">
-                <img src="Picture/Gallery/5.jpg" alt="5" width="250">
-                <img src="Picture/Gallery/6.jpg" alt="6" width="250">
-                <img src="Picture/Gallery/7.jpg" alt="7" width="250">
-                <img src="Picture/Gallery/8.jpg" alt="8" width="250">
-                <img src="Picture/Gallery/9.jpg" alt="9" width="250">
-                <img src="Picture/Gallery/10.jpg" alt="10" width="250">
-                <img src="Picture/Gallery/11.jpg" alt="11" width="250">
-                <img src="Picture/Gallery/12.jpg" alt="12" width="250">
-                <img src="Picture/Gallery/13.jpg" alt="13" width="250">
-                <img src="Picture/Gallery/14.jpg" alt="14" width="250">
-                <img src="Picture/Gallery/15.jpg" alt="15" width="250">
-                <img src="Picture/Gallery/16.jpg" alt="16" width="250">
-            </div>     
-        </div>
+  </div>
+
+  <div class="menubar">
+    <h1 class="sidebar title">Gallery</h1>
+    <a class="sidebar" onclick="showLoader()" href="index.html">Home</a>
+    <a class="sidebar" onclick="showLoader()" href="blog.html">Blog</a>
+    <a class="sidebar" onclick="showLoader()" href="contact.html">Contact</a>
+  </div>
+  <div class="spacing">
+    <div class="container">
+      <h2>Selamat Datang di Gallery Saya</h2>
+      <div class="button-gal" id="button-gal">
+      </div>
+
+      <div id="gallery" class="row">
+        <script>
+          var xmlhttp = new XMLHttpRequest();
+
+          xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+              if (xmlhttp.status == 200) {
+                var n = (xmlhttp.responseText.match(/jpg/g) || []).length;
+
+                let start = 1;
+                let end = 8;
+                let m = 5;
+                let columnCount = 1;
+
+                let row = document.getElementById("gallery");
+
+                for (let i = 0; i < (n / 4) / 8; i++) {
+                  let column = document.createElement("div");
+                  column.id = "column" + columnCount;
+                  column.className = "column";
+                  if (columnCount !== 1) {
+                    column.style.display = "none";
+                  }
+                  row.appendChild(column);
+
+                  let divbut = document.getElementById("button-gal");
+                  let but = document.createElement("button");
+                  but.className = "gallery-button";
+                  but.append(columnCount);
+                  but.setAttribute("onclick", "showColumn(" + columnCount + ")");
+                  divbut.appendChild(but);
+
+                  for (let j = start; j <= end; j++) {
+                    if (j <= n) {
+                      let image = document.createElement("img");
+                      image.src = 'Picture/Gallery/' + j + '.jpg';
+                      image.width = "250";
+                      document.getElementById("column" + columnCount)?.appendChild(image);
+                    } else {
+                      j++;
+                    }
+
+                  }
+
+                  start = end + 1;
+                  end = start + 7;
+                  columnCount++;
+                }
+              }
+            }
+          };
+
+          xmlhttp.open("GET", "Picture/Gallery/", true);
+          xmlhttp.send();
+
+          function showColumn(columnId) {
+            var columns = document.getElementsByClassName("column");
+            for (var i = 0; i < columns.length; i++) {
+              if (columns[i].id === "column" + columnId) {
+                columns[i].style.display = "block";
+              } else {
+                columns[i].style.display = "none";
+              }
+            }
+          }
+        </script>
+      </div>
+
     </div>
+  </div>
+
+
+
 </body>
+
 </html>

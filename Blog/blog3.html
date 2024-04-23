@@ -6,15 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mengungkap Misteri: Masa Depan Teknologi Kecerdasan Buatan (AI)</title>
     <link rel="stylesheet" href="../CSS/tampilan.css">
+    <script src="../JS/jscript.js"></script>
 </head>
 
 <body>
+
+    <div class="loader" id="loader">
+        <div class="water">
+          <div class="circle"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
+      </div>
+      
     <div class="menubar">
         <h1 class="sidebar title">Blog</h1>
-        <a class="sidebar" href="../index.html">Home</a>
-        <a class="sidebar" href="../gallery.html">Gallery</a>
-        <a class="sidebar" href="../blog.html">Blog</a>
-        <a class="sidebar" href="../contact.html">Contact</a>
+        <a class="sidebar" onclick="showLoader()" href="../index.html">Home</a>
+        <a class="sidebar" onclick="showLoader()" href="../gallery.html">Gallery</a>
+        <a class="sidebar" onclick="showLoader()" href="../blog.html">Blog</a>
+        <a class="sidebar" onclick="showLoader()" href="../contact.html">Contact</a>
     </div>
     <div class="spacing">
         <div class="container">
